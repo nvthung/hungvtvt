@@ -1,35 +1,49 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "App" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for(:title) || "App" %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= yield :head %>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      background-color: #007BFF; /* Blue background */
+      padding: 1em;
+    }
+    nav a {
+      color: white; /* White text */
+      text-decoration: none;
+      margin-right: 1em;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .notice {
+      padding: 1em;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+    }
+    main {
+      padding: 2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="notice"><%= notice %></div>
+  <nav>
+    <%= link_to "Home", root_path %>
+    <%= button_to "Log out", session_path, method: :delete, class: "logout-button" if authenticated? %>
+  </nav>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-  </head>
-
-  <body>
-    <div class="notice"><%= notice %></div>
-    <nav>
-      <%= link_to "Home", root_path %>
-      <%= button_to "Log out", session_path, method: :delete if authenticated? %>
-    </nav>
-
-    <main>
-      <%= yield %>
-    </main>
-  </body>
+  <main>
+    <%= yield %>
+  </main>
+</body>
 </html>
